@@ -45,8 +45,6 @@ def pswap(theta):
 
 def DickeCirc(n,k,layer,theta,init='pure'):
     
-    print(k)
-    
     k_bad = False
     if k > int(n/2):
         k = n - k
