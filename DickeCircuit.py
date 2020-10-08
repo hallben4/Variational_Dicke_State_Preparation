@@ -108,3 +108,35 @@ def DickeCirc(n,k,layer,theta,init='pure'):
         
     return circ
 
+def DickeCountParam(n,k,layer):
+    
+    k_bad = False
+    if k > int(n/2):
+        k = n - k
+        k_bad = True
+    
+    # Initialize list for indeces of qubits that will have X applied to them
+    index_list = []
+    for i in range(k):
+        index_list.append(2*i)
+        
+    # Initialize theta_index
+    theta_index = 0
+
+    for l in range(layer):
+        
+        # First layer (l=0)
+        if l != 0:
+            # Subsequent layers (l>0)
+            new_index_list = []
+            for i in index_list:
+                new_index_list.append(i-1)
+            new_index_list.append(i+1)
+
+            index_list = new_index_list
+        
+        for elm in index_list:
+            if elm >= 0 and elm < n-1:
+                theta_index += 1 
+        
+    return theta_index
