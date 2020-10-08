@@ -74,6 +74,7 @@ def DickeCirc(n,k,layer,theta,init='pure'):
     if init == 'mixed':
         circ.h(q[0])
         circ.x(q[1])
+        circ.cx(q[0],q[1])
         for i in range(int(n/2)-1):    
             circ.cx(q[0],q[2*i+2])
             circ.cx(q[1],q[2*i+3])
