@@ -45,6 +45,8 @@ def pswap(theta):
 
 def DickeCirc(n,k,layer,theta,init='pure'):
     
+    print(k)
+    
     k_bad = False
     if k > int(n/2):
         k = n - k
@@ -72,13 +74,16 @@ def DickeCirc(n,k,layer,theta,init='pure'):
     # Option 2: Mixed state
     # Create Bell |Psi^+> and copy
     if init == 'mixed':
-        circ.h(q[0])
-        circ.x(q[1])
-        circ.cx(q[0],q[1])
-        for i in range(int(n/2)-1):    
-            circ.cx(q[0],q[2*i+2])
-            circ.cx(q[1],q[2*i+3])
-        circ.barrier()
+        if k%2 != 0:
+            raise ValueError("k must be even for mixed")
+        else:
+            circ.h(q[0])
+            circ.x(q[1])
+            circ.cx(q[0],q[1])
+            for i in range(1,int(k/2)):    
+                circ.cx(q[0],q[2*i])
+                circ.cx(q[1],q[2*i+1])
+            circ.barrier()
 
     # Variational Section:
 
