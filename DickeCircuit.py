@@ -1,3 +1,6 @@
+## Variational Method
+
+# Imports
 import math
 import cmath
 get_ipython().run_line_magic('matplotlib', 'inline')
@@ -14,28 +17,17 @@ from qiskit.extensions import XGate, UnitaryGate
 from qiskit import *
 from qiskit.compiler import transpile
 from qiskit.visualization import plot_histogram
-
-provider = IBMQ.load_account()
-from qiskit.providers.aer.noise import NoiseModel
-
 from qiskit.quantum_info.synthesis import two_qubit_cnot_decompose as two_qubit_decomp
 
-X = np.matrix([[0,1],[1,0]],dtype=complex)
-Y = np.matrix([[0,-1j],[1j,0]],dtype=complex)
+# provider = IBMQ.load_account()
+# from qiskit.providers.aer.noise import NoiseModel
 
-swap = np.array([[1,0,0,0],
-                 [0,0,1,0],
-                 [0,1,0,0],
-                 [0,0,0,1]])
-
-## pswap
 # Partial swap matrix
 def pswap(theta):
     
     mat = np.array([[1,0,0,0],[0,np.cos(theta),-np.sin(theta),0],[0,np.sin(theta),np.cos(theta),0],[0,0,0,1]])
     
     return mat
-
 
 ## DickeCirc
 # Creates variational quantum circuit to prepare the Dicke state D(n,k)
@@ -111,6 +103,7 @@ def DickeCirc(n,k,layer,theta,init='pure'):
         
     return circ
 
+# Calculates number of variational parameters required
 def DickeCountParam(n,k,layer):
     
     k_bad = False

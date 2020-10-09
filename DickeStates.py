@@ -1,17 +1,10 @@
+## Explicit Method
+
+# Imports
 from qiskit import IBMQ
-# IBMQ.delete_accounts()
-# IBMQ.save_account('e153ef2c9fcbf4386146420a0f058b17a4e8ef7417858314f250ebd838c6005706f37ef2130d8de300636069cb9b3c596a70bc5b7d0b62999a116ac3be8c1b95')
-# IBMQ.load_accounts()
 from qiskit.compiler import transpile
-
-
-# In[9]:
-
-
 from qiskit import QuantumCircuit, ClassicalRegister, QuantumRegister, Aer, execute
 from qiskit.tools.visualization import plot_histogram
-# from qiskit.tools.monitor import job_monitor
-
 import math
 import time
 import matplotlib.pyplot as plt
@@ -21,10 +14,7 @@ from fractions import Fraction
 # Variables
 pi = np.pi
 
-
-# In[21]:
-
-
+# Functions
 def ccr(alpha,theta,c1,c2,u,qc,n): # control-control-rotation gate gate
     
     pi = np.pi
@@ -49,8 +39,6 @@ def ccr(alpha,theta,c1,c2,u,qc,n): # control-control-rotation gate gate
         qc.cx(sim[c1],sim[c2])
         qc.cu1(theta/2,sim[c1],sim[u])
     
-    
-
 def scs(x,y,qc,n): # s is starting qubit, qc is quantum circuit
     sim = QuantumRegister(n,'sim')
     for i in range(1,y+1):
@@ -62,8 +50,8 @@ def scs(x,y,qc,n): # s is starting qubit, qc is quantum circuit
             qc.cx(sim[x-1-i],sim[x-1])
             ccr('x',2*math.acos(math.sqrt(i/x)),x-1,x-i,x-1-i,qc,n)
             qc.cx(sim[x-1-i],sim[x-1])
-            
 
+# Returns Dicke circuit
 def Dicke_exp(n,k):
     
     # Create circuit
@@ -84,8 +72,6 @@ def Dicke_exp(n,k):
     circ.measure(sim,meas)
     
     trans = transpile(circ, basis_gates=['u1', 'u2', 'u3', 'cx'], optimization_level=3)
-
-#     return trans.draw(output='mpl')
 
     # Draw
     return circ
